@@ -46,8 +46,7 @@ Naka-kahon na yung buong app dito. Pag ni-run mo 'to sa laptop mo, sure ball na 
    Sa loob ng VS Code terminal, i-run itong command na 'to:
    ```bash
    docker-compose up --build
-   
-```
+   ```
    *(Kung gusto mo na patayin yung server, press `Ctrl + C` lang sa terminal).*
 
 3. **I-check kung okay na:**
@@ -83,9 +82,3 @@ Dun lang tayo sa sarili nating branches mag-kalat, haha. Wag mag-edit directly s
 2. **COPILOT CHECK:** Bago mo i-submit, paki-pa-review muna kay GitHub Copilot yung code mo kung may mga obvious na sablay o bugs.
 3. Pag goods na kay Copilot, i-submit mo na yung PR. 
 4. Ako (Lashawn) lang ang may access mag-click ng Merge button para sure na walang palpak na papasok sa `main` branch natin.
-
-***
-*Pag may na-encounter kayong error sa setup, or may tanong kayo sa EDI formats, ping niyo lang ako!*
-```
-
-```
