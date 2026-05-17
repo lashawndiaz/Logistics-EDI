@@ -1,0 +1,37 @@
+query ListAllPosts @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public as it lists public content.") {
+  posts {
+    id
+    title
+    content
+    createdAt
+    author {
+      uid
+      displayName
+    }
+  }
+}
+
+query GetMyProfile @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users as it retrieves their own profile.") {
+  user(where: {uid: {eq_expr: "auth.uid"}}) {
+    uid
+    displayName
+    email
+    bio
+  }
+}
+
+mutation CreateNewPost($title: String!, $content: String!) @auth(level: USER) {
+  post: post_insert(data: {
+    title: $title,
+    content: $content,
+    authorUid_expr: "auth.uid",
+    createdAt_expr: "request.time"
+  })
+}
+
+mutation UpdateMyPost($postId: UUID!, $title: String, $content: String) @auth(level: USER) {
+  post: post_update(key: {id: $postId}, data: {
+    title: $title,
+    content: $content
+  }, where: {authorUid: {eq_expr: "auth.uid"}})
+}

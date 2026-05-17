@@ -1,0 +1,36 @@
+type User @table {
+  displayName: String!
+  createdAt: Timestamp!
+  email: String
+  photoUrl: String
+}
+
+type Note @table {
+  title: String!
+  content: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  isPublic: Boolean
+  author: User
+}
+
+type Tag @table {
+  name: String!
+  createdAt: Timestamp!
+  description: String
+  owner: User
+}
+
+type NoteTag @table(key: ["note", "tag"]) {
+  createdAt: Timestamp!
+  note: Note!
+  tag: Tag!
+}
+
+type SharedNote @table(key: ["note", "sharer", "sharee"]) {
+  accessLevel: String!
+  createdAt: Timestamp!
+  note: Note!
+  sharer: User!
+  sharee: User!
+}
