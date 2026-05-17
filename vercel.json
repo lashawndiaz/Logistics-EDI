@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/api/v1/edi/(.*)",
+      "dest": "Backend/index.js"
+    }
+  ]
+}
