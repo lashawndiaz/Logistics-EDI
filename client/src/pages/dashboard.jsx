@@ -143,17 +143,14 @@ export default function LogisticsDashboard() {
     }
   };
 
-  
-const handleForwardEDI = async () => {
+  // Connected proxy to dispatch updates through your Express Backend Port Engine cleanly (Aligned to Local 5004 Engine)
+  const handleForwardEDI = async () => {
     setIsLoading(true);
     try {
-      // Changed from localhost to a relative endpoint mapped through your vercel.json /api prefix
-      const response = await fetch('/api/v1/edi/dispatch214', {
-        method: 'PATCH', // Changed to MATCH your backend's explicit route method handler
+      const response = await fetch('http://localhost:5007/api/v1/edi/dispatch214', {
+        method: 'POST', 
         headers: { 
-          'Content-Type': 'application/json',
-          'X-Group-Token': 'PRIMEROUTE_LOGISTICS_TOKEN',
-          'X-Sender-ID': 'LOGI001'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           targetReceiverId: outboundReceiver,
@@ -184,11 +181,23 @@ const handleForwardEDI = async () => {
     }
   };
 
+  // Structured payload generation to use valid JSON Object Formatting instead of outer array strings
   const handleProcess = (transaction) => {
     const json = JSON.stringify({
-      header: { asn_id: transaction.asn_id || "ASN-PENDING", linked_po: "PO-PENDING" },
-      logistics_info: { carrier: "PrimeRoute", tracking_number: transaction.tracking_number },
-      shipment_detail: [{ item_id: "ITEM-001", po_number: "PO-PENDING", qty: 1, uom: "EA" }]
+      header: { 
+        asn_id: transaction.asn_id || "ASN-PENDING", 
+        linked_po: "PO-PENDING" 
+      },
+      logistics_info: { 
+        carrier: "PrimeRoute", 
+        tracking_number: transaction.tracking_number || "LOG-PENDING" 
+      },
+      shipment_detail: { 
+        item_id: "ITEM-001", 
+        po_number: "PO-PENDING", 
+        qty: 1, 
+        uom: "EA" 
+      }
     }, null, 2);
     setInboundJson(json);
     setSelectedTransactionId(transaction.id);
