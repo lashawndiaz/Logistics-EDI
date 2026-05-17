@@ -1,0 +1,8 @@
+{
+  "name": "logistics-edi-root",
+  "version": "1.0.0",
+  "scripts": {
+    "install-all": "npm install --prefix Backend && npm install --prefix client",
+    "build": "npm run build --prefix client"
+  }
+}
