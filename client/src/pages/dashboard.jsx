@@ -143,14 +143,17 @@ export default function LogisticsDashboard() {
     }
   };
 
-  // Connected proxy to dispatch updates through your Express Backend Port Engine cleanly
-  const handleForwardEDI = async () => {
+  
+const handleForwardEDI = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:5007/api/v1/edi/dispatch214', {
-        method: 'POST', 
+      // Changed from localhost to a relative endpoint mapped through your vercel.json /api prefix
+      const response = await fetch('/api/v1/edi/dispatch214', {
+        method: 'PATCH', // Changed to MATCH your backend's explicit route method handler
         headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-Group-Token': 'PRIMEROUTE_LOGISTICS_TOKEN',
+          'X-Sender-ID': 'LOGI001'
         },
         body: JSON.stringify({
           targetReceiverId: outboundReceiver,
